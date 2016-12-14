@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+
+<h:form id="frmUsuario">
+UserName:<h:inputText value="#{usuarioController.usuario.userName}" />
+Password:<h:inputText value="#{usuarioController.usuario.password}" />
+Is Site Administrator:<h:inputText value="#{usuarioController.usuario.isSiteAdministrator}" />
+Full Name:<h:inputText value="#{usuarioController.usuario.fullName}" />
+Email Address:<h:inputText value="#{usuarioController.usuario.emailAddress}" />
+URL:<h:inputText value="#{usuarioController.usuario.url}" />
+
+		<h:commandButton action="#{usuarioController.save}" value="Save">
+			<f:ajax execute="frmUsuario" render="frmUsuario" />
+		</h:commandButton>
+
+		<h:commandButton rendered="#{usuarioController.editMode}"
+			action="#{usuarioController.save}" value="Cancel">
+			<f:ajax render="frmUsuario"></f:ajax>
+		</h:commandButton>
+
+		<h:dataTable value="#{usuarioController.usuarios}" var="u" id="dtUsuario">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+	 	#{u.id}
+	</h:column>
+
+
+
+			<h:column>
+				<f:facet name="header">Username</f:facet>
+	 	#{u.userName}
+	</h:column>
+
+
+			<h:column>
+				<f:facet name="header">Password</f:facet>
+	 	#{u.password}
+	</h:column>
+
+	<h:column>
+				<f:facet name="header">Is Site administrator</f:facet>
+	 	#{u.isSiteAdministrator}
+	</h:column>
+	
+	<h:column>
+				<f:facet name="header">Full name</f:facet>
+	 	#{u.fullName}
+	</h:column>
+	
+	<h:column>
+				<f:facet name="header">Email address</f:facet>
+	 	#{u.emailAddress}
+	</h:column>
+	
+	<h:column>
+				<f:facet name="header">URL</f:facet>
+	 	#{u.url}
+	</h:column>
+	
+			<h:column>
+				<f:facet name="header">Actions</f:facet>
+				<h:commandButton action="#{usuarioController.delete(u)}"
+					value="Delete" onclick="return window.confirm ('Are you sure?')">
+					<f:ajax render="frmUsuario:dtUsuario" />
+				</h:commandButton>
+				<h:commandButton action="#{usuarioController.update(u)}"
+					value="Update">
+					<f:ajax render="frmUsuario" />
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+</body> 
+</html>

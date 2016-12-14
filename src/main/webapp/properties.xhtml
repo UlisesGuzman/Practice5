@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body>
+<h:form id="frmProperty">
+ExamId:<h:inputText value="#{propertyController.property.examId}" />
+UserId:<h:inputText value="#{propertyController.property.userId}" />
+StartDateTime:<h:inputText value="#{propertyController.property.startDateTime}" />
+Duration:<h:inputText value="#{propertyController.property.duration}" />
+Grade:<h:inputText value="#{propertyController.property.grade}" />
+Status:<h:inputText value="#{propertyController.property.status}" />
+
+
+		<h:commandButton action="#{propertyController.save}" value="Save">
+			<f:ajax execute="frmProperty" render="frmProperty" />
+		</h:commandButton>
+
+		<h:commandButton rendered="#{propertyController.editMode}"
+			action="#{propertyController.save}" value="Cancel">
+			<f:ajax render="frmProperty"></f:ajax>
+		</h:commandButton>
+
+		<h:dataTable value="#{propertyController.properties}" var="h" id="dtProperty">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+	 	#{h.id}
+	</h:column>
+
+
+
+			<h:column>
+				<f:facet name="header">ExamId</f:facet>
+	 	#{h.examId}
+	</h:column>
+
+
+			<h:column>
+				<f:facet name="header">UserId</f:facet>
+	 	#{h.userId}
+	</h:column>
+
+
+			<h:column>
+				<f:facet name="header">StartDateTime</f:facet>
+		#{h.startDateTime}
+	</h:column>
+
+
+
+			<h:column>
+				<f:facet name="header">Duration</f:facet>
+		#{h.duration}
+	</h:column>
+	
+	<h:column>
+				<f:facet name="header">Grade</f:facet>
+		#{h.grade}
+	</h:column>
+	
+	<h:column>
+				<f:facet name="header">Status</f:facet>
+		#{h.status}
+	</h:column>
+	
+			<h:column>
+				<f:facet name="header">Actions</f:facet>
+				<h:commandButton action="#{propertyController.delete(h)}"
+					value="Delete" onclick="return window.confirm ('Are you sure?')">
+					<f:ajax render="frmProperty:dtProperty" />
+				</h:commandButton>
+				<h:commandButton action="#{propertyController.update(h)}"
+					value="Update">
+					<f:ajax render="frmProperty" />
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+</body> 
+</html>
